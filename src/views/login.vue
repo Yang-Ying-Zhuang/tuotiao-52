@@ -29,6 +29,7 @@
       </p>
       <!-- <div data-v-4bc01e24 class="button">登录按钮</div> -->
       <mylogin text="登录" @click="login"></mylogin>
+      
     </div>
   </div>
 </template>
@@ -40,6 +41,9 @@ import mylogin  from '../components/mybutton'
 import myinput  from '../components/myinput'
 // 引入路由
 import axios from "@/utils/axios"
+// 提示框
+import 'vant/lib/index.css';  // 引入样式
+import { Toast } from 'vant';
 export default {
   // 注册
    components:{
@@ -60,16 +64,19 @@ export default {
       axios.post("/login",this.user)
       .then(function(data){
         console.log(data);
-        if(data.data.message == "登录成功")
-        console.log(11);
+        if(data.data.statusCode == 401){
+           Toast(data.data.message);
+        }else{
+           Toast(data.data.message);
+        } 
       })
       .catch(function(err){
-         alert(data.data.message)
+        console.log(err);
       })
        
      },
      myinp(data){
-       console.log(data);
+      //  console.log(data);
         this.username = data
      }
    },
