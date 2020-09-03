@@ -2,6 +2,7 @@ import Vue from "vue"
 import VueRouter from "vue-router"
 Vue.use(VueRouter)
 
+
 //引入
 import Login from "../views/login.vue"
 
