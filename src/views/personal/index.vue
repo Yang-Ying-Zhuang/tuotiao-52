@@ -2,10 +2,10 @@
   <div class="personal">
     <router-link to="/edit_profile">
       <div class="profile">
-        <img src="http://img1.imgtn.bdimg.com/it/u=3757784226,1202878475&fm=26&gp=0.jpg" alt />
+        <img :src="baseURL + msg.head_img" alt />
         <div class="profile-center">
           <div class="name">
-            <span class="iconfont iconxingbienan"></span>我就是我
+            <span class="iconfont iconxingbienan">{{msg.nickname}}</span>
           </div>
           <div class="time">2019-9-24</div>
         </div>
@@ -25,10 +25,36 @@
 import hmcell from "@/components/mycell"
 // 引入按钮
 import mybutton from "@/components/mybutton"
+//引入请求的数据
+import {getUserById} from "@/apis/user"
+// 引入基准路径
+import URL from "@/utils/axios"
+
 export default {
   components:{
-    hmcell,mybutton
+    hmcell,mybutton,getUserById
+  },
+  data(){
+    return{
+     msg:"",
+     baseURL:""
+    }
+  },
+
+ async mounted(){
+  //  console.dir(URL);
+    // console.log(this.$route.params.id);
+    const id = this.$route.params.id
+    const res = await getUserById(id)
+    console.log(res);
+    if(res.data.message === "获取成功"){
+       this.msg = res.data.data
+       this.baseURL = URL.defaults.baseURL
+    }else if(res.data.message === "用户信息验证失败"){
+       this.$route.push({name:login})
+    }
   }
+
 };
 </script>
 
