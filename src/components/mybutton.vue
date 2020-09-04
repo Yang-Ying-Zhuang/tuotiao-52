@@ -1,7 +1,6 @@
 <template>
    <div class="btn" @click="myclick">
-     
-     <slot>{{text}}</slot>
+     <slot></slot>
    </div>
 </template>
 

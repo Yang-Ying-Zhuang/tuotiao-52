@@ -7,6 +7,10 @@ Vue.config.productionTip = false
 //在main.js引入称为全局引入
 import "./styles/reset.less"
 
+// 提示框
+import { Toast } from 'vant';
+Vue.use(Toast);
+
 //引入路由
 import router from "./router/1-index"
 

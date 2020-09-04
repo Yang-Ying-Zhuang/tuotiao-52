@@ -1,24 +1,55 @@
 <template>
-  <input :type="type" class="hminput"
+
+  <input class="hminput"
    @input="handlerClick"
-  :value="value">
+  :value="value"
+  :class="{success:statu,error:!statu}"
+  @change="handChange">
 </template>
 
 <script>
 export default {
   props:{
-      type:String,
-      value:""
+      value:"",
+      rules:RegExp, // 代表正则规则
+      msg:String // 代表输入不合法的验证消息
   },
    data(){
      return{
+       statu:true
      }
    },
+// mounted(){
+// console.log(this.rules);
+// },
+
    methods:{
      handlerClick(e){
-       this.$emit("input",e.target.value)
-     }
-   }
+      //  console.log(e.target.value);
+      // 事件触发，用户和密码输入就触发
+      let value = e.target.value
+      // test则重的是匹配,验证当前用户的输入是否合法
+      if(this.rules && this.rules.test(value)){
+        //  console.log("成功");
+         this.statu = true
+      }else{
+         this.statu = false
+      }
+       this.$emit("input",value)
+
+     },
+      handChange(e){
+      let value = e.target.value
+      if(this.rules && !this.rules.test(value)){
+         this.$toast.fail({
+           message:this.msg || "输入不正确",
+           duration:3000
+         })
+      }
+
+    }
+  }
+  
 }
 </script>
 
