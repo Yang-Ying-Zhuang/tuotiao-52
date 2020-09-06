@@ -41,8 +41,8 @@
 import mylogin  from '../components/mybutton'
 // 输入框
 import myinput  from '../components/myinput'
-// 引入路由
-import axios from "@/utils/axios"
+// 引入基准路径
+// import axios from "@/utils/axios"
 // 封装user.js数据请求
 import {login} from "../apis/user"
 

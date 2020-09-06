@@ -1,6 +1,6 @@
 <template>
   <div class="personal">
-    <router-link to="/edit_profile">
+    <router-link :to="`/editprofile/`+ msg.id">
       <div class="profile">
         <img :src="baseURL + msg.head_img" alt />
         <div class="profile-center">
@@ -36,7 +36,7 @@ export default {
   },
   data(){
     return{
-     msg:"",
+     msg:{},
      baseURL:""
     }
   },
@@ -46,7 +46,7 @@ export default {
     // console.log(this.$route.params.id);
     const id = this.$route.params.id
     const res = await getUserById(id)
-    console.log(res);
+    // console.log(res);
     if(res.data.message === "获取成功"){
        this.msg = res.data.data
        this.baseURL = URL.defaults.baseURL

@@ -1,7 +1,9 @@
 <template>
-  <div class="cell">
+  <div class="cell" @click="myclick">
       <div class="left">{{title}}</div>
-      <div class="right">{{desc}}<span class="iconfont iconjiantou1"></span></div>
+      <div class="right">{{type==='password'?'******':desc}}
+        <span class="iconfont iconjiantou1"></span>
+      </div>
       <slot></slot>
   </div>
 </template>
@@ -10,7 +12,13 @@
 export default {
   props:{
     title:String,
-    desc:String
+    desc:String,
+    type:String
+  },
+  methods:{
+    myclick(e){
+      this.$emit("click",e)
+    },
   }
 }
 </script>

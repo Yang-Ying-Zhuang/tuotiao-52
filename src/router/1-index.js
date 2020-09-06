@@ -3,9 +3,12 @@ import VueRouter from "vue-router"
 Vue.use(VueRouter)
 
 
-//引入
+//登录页
 import Login from "../views/login.vue"
+// 个人中心也
 import Personal from "../views/personal/index.vue"
+// 个人编辑也
+import Editprofile from "../views/personal/editprofile.vue"
 
 const router = new VueRouter({
   routes: [{
@@ -17,6 +20,11 @@ const router = new VueRouter({
       name: "personal",
       path: "/personal/:id",
       component: Personal
+    },
+    {
+      name: "edit_profile",
+      path: "/editprofile/:id",
+      component: Editprofile
     }
   ]
 })
@@ -33,7 +41,6 @@ router.beforeEach((to, from, next) => {
       // console.log(11);
        next({name:"login"})
     }
-
   } else {
     next()
   }

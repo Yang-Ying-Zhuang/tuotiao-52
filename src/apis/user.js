@@ -10,10 +10,6 @@ export const login = function(data){
   })
 }
 
-// 这个方法是一个需要授权认证的方法，所以需要手动的传递token
-// 1.手动接收：登录成功之后能够获取到token
-// 2.手动存储：本地存储
-// 3.手动传递：通过axios的headers配置选项进行传递
 // 接口类型:【GET】
 // 需要验证:【 Authorization 】
 // 接口地址: 
@@ -25,3 +21,17 @@ export const getUserById = (id)=>{
     // headers:{Authorization:localStorage.getItem("heima-52")}
   })
 }
+
+// ### 编辑用户信息
+// > 接口类型:【POST】
+// > 需要验证:【Authorization 】
+// > 接口地址: 
+// /user_update/:id
+export const editPersonalInfo = (id,data)=>{
+  return myaxios({
+    method:"POST",
+    url:`/user_update/${id}` ,
+    data
+  })
+}
+

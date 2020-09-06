@@ -8,9 +8,12 @@ Vue.config.productionTip = false
 import "./styles/reset.less"
 
 // 提示框
-import { Toast } from 'vant';
+import { Toast,Button,Uploader,Dialog,Field } from 'vant';
 Vue.use(Toast);
-
+Vue.use(Button);
+Vue.use(Uploader);
+Vue.use(Dialog);
+Vue.use(Field);
 //引入路由
 import router from "./router/1-index"
 
