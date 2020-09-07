@@ -35,3 +35,17 @@ export const editPersonalInfo = (id,data)=>{
   })
 }
 
+// 注册
+// > 接口类型:【POST】
+// > 接口地址: 
+// /register
+export const register = (data)=>{
+ return myaxios({
+  method:"post",
+  url:"/register",
+  data
+ })
+
+}
+
+

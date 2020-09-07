@@ -81,7 +81,8 @@ export default {
       })
       // 存储token数据
       localStorage.setItem("heima-52",res.data.data.token)
-      this.$router.push({path:'/personal/'+res.data.data.user.id})
+      // this.$router.push({path:'/personal/'+res.data.data.user.id})
+      this.$router.push({name:"index"})
     }
       // 没封装的请求
        // axios.post("/login",this.user)

@@ -16,7 +16,7 @@
     <hmcell title="我的跟帖" desc="跟帖/回复"></hmcell>
     <hmcell title="我的收藏" desc="文章/视频"></hmcell>
     <hmcell title="设置"></hmcell>
-    <mybutton class="btn">退出</mybutton>
+    <mybutton class="btn" @click="clickRegister">退出</mybutton>
   </div>
 </template>
 
@@ -40,7 +40,6 @@ export default {
      baseURL:""
     }
   },
-
  async mounted(){
   //  console.dir(URL);
     // console.log(this.$route.params.id);
@@ -50,8 +49,15 @@ export default {
     if(res.data.message === "获取成功"){
        this.msg = res.data.data
        this.baseURL = URL.defaults.baseURL
+       
     }else if(res.data.message === "用户信息验证失败"){
        this.$route.push({name:login})
+    }
+  },
+  methods:{
+    clickRegister(e){
+       localStorage.removeItem("heima-52")
+       this.$router.push({name:"register"})
     }
   }
 

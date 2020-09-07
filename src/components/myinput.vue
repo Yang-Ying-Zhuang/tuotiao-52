@@ -1,5 +1,4 @@
 <template>
-
   <input class="hminput"
    @input="handlerClick"
   :value="value"

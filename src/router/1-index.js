@@ -5,16 +5,25 @@ Vue.use(VueRouter)
 
 //登录页
 import Login from "../views/login.vue"
-// 个人中心也
+// 个人中心页
 import Personal from "../views/personal/index.vue"
-// 个人编辑也
+// 个人编辑页
 import Editprofile from "../views/personal/editprofile.vue"
-
+//注册页
+import Register from "../views/personal/register.vue"
+//首页
+import Index from "../views/index.vue"
 const router = new VueRouter({
-  routes: [{
+  routes: [
+    {
       name: "login",
       path: "/login",
       component: Login
+    },
+    {
+      name: "index",
+      path: "/index",
+      component: Index
     },
     {
       name: "personal",
@@ -25,6 +34,11 @@ const router = new VueRouter({
       name: "edit_profile",
       path: "/editprofile/:id",
       component: Editprofile
+    },
+    {
+      name: "register",
+      path: "/register",
+      component: Register
     }
   ]
 })

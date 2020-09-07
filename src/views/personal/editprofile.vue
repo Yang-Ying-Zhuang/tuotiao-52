@@ -16,11 +16,14 @@
 
     <mycell title="密码" :desc="msg.password" type="password" @click="namePassword = !namePassword"></mycell>
       <van-dialog v-model="namePassword" title="修改密码" show-cancel-button @confirm="updatepassword">
-          <van-field v-model="password" label="原密码" placeholder="请输入密码" type="password" ref="mypassword" @input="getpassword"/>
-          <van-field v-model="password" label="新密码" placeholder="请输入密码" type="password" />
+          <van-field label="原密码" placeholder="请输入密码" type="text" :value="yuanpass" @input="yuanpassword"/>
+          <van-field label="新密码" placeholder="请输入密码" type="password" :value="xinpass" @input="xinpassword"/>
        </van-dialog>
 
-    <mycell title="性别" :desc="msg.gender==1?'男':'女'"></mycell>
+    <mycell title="性别" :desc="msg.gender==1?'男':'女'" @click="usergender = !usergender"></mycell>
+     <van-dialog v-model="usergender" title="请选择性别" show-cancel-button @confirm="clickgender">
+        <van-picker :columns="columns" @change="onChange"/>
+      </van-dialog>
   </div>
 </template>
 
@@ -50,7 +53,11 @@ export default {
       nickshow: false,
       username:"",
       namePassword:false,
-      password:""
+      yuanpass:"",
+      xinpass:"",
+      usergender:false,
+      columns:["女","男"],
+      genderindex:""
     };
   },
   async mounted() {
@@ -108,22 +115,59 @@ export default {
       // input:封装的van-filed中，文本框的ref值就是input
         // console.log(this.$refs.nick.$refs.input.value);
           // console.log(this.username);
-        let str = await editPersonalInfo(this.msg.id,{nickname:this.username})
+          if(this.username.trim() !== ""){
+            let str = await editPersonalInfo(this.msg.id,{nickname:this.username})
         // console.log(str);
-        if(str.data.message === "修改成功"){
-           this.msg.nickname = this.username
-          this.$toast.success("修改用户名成功")
-        }else{
-           this.$toast.fail("修改用户名失败")
-        }
+            if(str.data.message === "修改成功"){
+                this.msg.nickname = this.username
+               this.$toast.success("修改用户名成功")
+           }else{
+               this.$toast.fail("修改用户名失败")
+           }
+          }else{
+            this.$toast.fail("密码不能为空")
+          }
     },
-    getpassword(data){
-      this.password = data
+    // 原密码
+    yuanpassword(data){
+      this.yuanpass = data
+    },
+    // 新密码
+    xinpassword(resdata){
+      this.xinpass = resdata
     },
     async updatepassword(){
-      console.log(this.password);
-      // this.password = res 
-      // console.log();
+      // console.log(this.yuanpass);
+      if(this.yuanpass == this.msg.password){
+         const str = await editPersonalInfo(this.msg.id,{password:this.xinpass})
+        console.log(str);
+        if(str.data.message === "修改成功"){
+           this.msg.password = this.xinpass
+           this.$toast.success("修改密码成功")
+           // 请空原密码
+           this.yuanpass = this.xinpass = ""
+        }else{
+           this.$toast.fail("修改密码失败")
+        }
+
+      }else{
+        this.$toast.fail("密码错误")
+      }
+    },
+    // 男和女
+    onChange(a,gender,index){
+       this.genderindex = index
+    },
+    async clickgender(){
+        // console.log(this.genderindex); 
+       let str = await editPersonalInfo(this.msg.id,{gender:this.genderindex})
+       // console.log(str);
+       if(str.data.message === "修改成功"){
+           this.msg.gender = this.genderindex
+          this.$toast.success("修改性别成功")
+      }else{
+          this.$toast.fail("修改性别失败")
+      }
     }
   },
 };
