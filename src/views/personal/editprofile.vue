@@ -15,7 +15,7 @@
        </van-dialog>
 
     <mycell title="密码" :desc="msg.password" type="password" @click="namePassword = !namePassword"></mycell>
-      <van-dialog v-model="namePassword" title="修改密码" show-cancel-button @confirm="updatepassword">
+      <van-dialog v-model="namePassword" title="修改密码" show-cancel-button @confirm="updatepassword" :before-close="beforeclose">
           <van-field label="原密码" placeholder="请输入密码" type="text" :value="yuanpass" @input="yuanpassword"/>
           <van-field label="新密码" placeholder="请输入密码" type="password" :value="xinpass" @input="xinpassword"/>
        </van-dialog>
@@ -148,12 +148,30 @@ export default {
            this.yuanpass = this.xinpass = ""
         }else{
            this.$toast.fail("修改密码失败")
-        }
+          }
 
-      }else{
+        }else{
         this.$toast.fail("密码错误")
-      }
+        }
     },
+    // 阻止密码错误关闭，用户体验
+     beforeclose(action,done){
+      //  console.dir(action)
+      //  console.dir(done)
+        if(action == "confirm"){
+           if(this.yuanpass !== this.msg.password){
+              done(false)
+           }
+          else{
+              done()
+           }
+        }else{
+            // 请空原密码
+           this.yuanpass = this.xinpass = ""
+            done()
+        }
+      },
+  
     // 男和女
     onChange(a,gender,index){
        this.genderindex = index

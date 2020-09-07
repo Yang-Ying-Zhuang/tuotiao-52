@@ -8,13 +8,17 @@ Vue.config.productionTip = false
 import "./styles/reset.less"
 
 // 提示框
-import { Toast,Button,Uploader,Dialog,Field,Picker } from 'vant';
+import { Toast,Button,Uploader,Dialog,Field,Picker,Icon,Tab,Tabs  } from 'vant';
 Vue.use(Toast);
 Vue.use(Button);
 Vue.use(Uploader);
 Vue.use(Dialog);
 Vue.use(Field);
 Vue.use(Picker);
+Vue.use(Icon);
+Vue.use(Tab);
+Vue.use(Tabs);
+
 //引入路由
 import router from "./router/1-index"
 

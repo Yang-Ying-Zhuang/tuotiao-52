@@ -31,7 +31,7 @@ const router = new VueRouter({
       component: Personal
     },
     {
-      name: "edit_profile",
+      name: "editprofile",
       path: "/editprofile/:id",
       component: Editprofile
     },
