@@ -9,8 +9,19 @@ export const upfile = function(data){
   return myaxios({
     method:"post",
     url:"/upload",
-      // 如果传入的参数是formdata,就可以直接作为参数
-    data
+    data   // 如果传入的参数是formdata,就可以直接作为参数
   })
 
 }
+
+//文章详情
+// > 接口类型:【GET】
+// > 接口地址: 
+// /post/:id
+export const articledetails = function(id){
+  return myaxios({
+    url:`/post/${id}`,
+  })
+}
+
+

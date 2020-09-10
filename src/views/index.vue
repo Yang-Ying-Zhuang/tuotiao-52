@@ -17,27 +17,31 @@
         <van-tab v-for="(value,index)  in cateList" :key="index" :title="value.name">
           <!-- <div style="width:100%;height:400px;background:red">{{index}}</div> -->
           <!-- 上拉加载更多数据 -->
-          <van-list v-model="value.loading" @load="onLoad" :finished="value.finished" :offset="10" finished-text="没有更多了">
-            
+          <van-list
+            v-model="value.loading"
+            @load="onLoad"
+            :finished="value.finished"
+            :offset="10"
+            finished-text="没有更多了"
+          >
             <!-- 下拉刷新 -->
-             <van-pull-refresh v-model="value.isLoading" @refresh="onRefresh">
-                <mynews v-for="(v,i) in value.postlist" :key='i' :post="v"></mynews>
-             </van-pull-refresh>
+            <van-pull-refresh v-model="value.isLoading" @refresh="onRefresh">
+              <mynews v-for="(v,i) in value.postlist" :key="i" :post="v"></mynews>
+            </van-pull-refresh>
           </van-list>
-        </van-tab> 
+        </van-tab>
       </van-tabs>
     </div>
-   
   </div>
 </template>
 
 <script>
-import { category } from "../apis/cate";    // 栏目
+import { category } from "../apis/cate"; // 栏目
 import { getartcle } from "../apis/artcle"; // 文章
-import mynews from "../components/myjournalism"
+import mynews from "../components/myjournalism";
 
 export default {
-  components: { category, getartcle,mynews },
+  components: { category, getartcle, mynews },
 
   data() {
     return {
@@ -46,67 +50,69 @@ export default {
       cateList: [], // 栏目列表数据
     };
   },
- 
 
   methods: {
-    async init(){
-       // 加载这个栏目的文章数据
-      let posts = await getartcle({
-         category:this.cateList[this.active].id,
-         pageIndex: 1, //这个栏目每页所显示的记录数
-         pageSize: 5, // 这个栏目 当前的页码
-      })
-        this.cateList[this.active].postlist = posts.data.data;
-        console.log(this.cateList);
-    },
     // 上拉加载更多数据
-    onLoad(){
-         // console.log(11);
-         setTimeout(async()=>{
-           this.cateList[this.active].pageIndex ++
-           let posts = await getartcle({
-           category: this.cateList[this.active].id,
-           pageIndex:this.cateList[this.active].pageIndex,
-           pageSize:this.cateList[this.active].pageSize
-         })
-         // 将获取的数据存储到当前栏目的postlist数组中--追加
-         this.cateList[this.active].postlist.push(...posts.data.data);
-         // 本次请求完毕，将loading重置false,以便让用户可以继续加载下一页数据，否则‘正在加载中。。。’
-         this.cateList[this.active].loading = false
-         // 经过本次请求之后，如果所有数据都加载完毕了则需要finished重置为true.标记所有数据加载完毕，后续请求不再响应
-         if(posts.data.data.length < this.cateList[this.active].pageSize){
-           this.cateList[this.active].finished = true
-         }
-      },2000)
+    onLoad() {
+      // console.log(11);
+      //在开发中不用加时
+      setTimeout(async () => {
+        this.cateList[this.active].pageIndex++;
+        let posts = await getartcle({
+          category: this.cateList[this.active].id,
+          pageIndex: this.cateList[this.active].pageIndex,
+          pageSize: this.cateList[this.active].pageSize,
+        });
+        // 将获取的数据存储到当前栏目的postlist数组中--追加
+        this.cateList[this.active].postlist.push(...posts.data.data);
+        // 本次请求完毕，将loading重置false,以便让用户可以继续加载下一页数据，否则‘正在加载中。。。’
+        this.cateList[this.active].loading = false;
+        // 经过本次请求之后，如果所有数据都加载完毕了则需要finished重置为true.标记所有数据加载完毕，后续请求不再响应
+        if (posts.data.data.length < this.cateList[this.active].pageSize) {
+          this.cateList[this.active].finished = true;
+        }
+      }, 2000);
     },
     // 下拉刷新
-    onRefresh(){
+    onRefresh() {
       // 重新加载第一页
       // 1. 重置页码到1
       this.cateList[this.active].pageIndex = 1;
       //2. 数据清空
       this.cateList[this.active].postlist.length = 0;
-      // 3.发起数据请求获取数据
-      setTimeout(async()=>{
+      // 3.发起数据请求获取数据，//在开发中不用加时
+      setTimeout(async () => {
         let posts = await getartcle({
-          category:this.cateList[this.active].id,
-          pageIndex:this.cateList[this.active].pageIndex,
-          pageSize:this.cateList[this.active].pageSize
+          category: this.cateList[this.active].id,
+          pageIndex: this.cateList[this.active].pageIndex,
+          pageSize: this.cateList[this.active].pageSize,
         });
         // 将获取的数据存储到栏目的postList数组中--追加
         this.cateList[this.active].postlist.push(...posts.data.data);
         // 将isLoading 重置为false
-        this.cateList[this.active].isLoading = false
+        this.cateList[this.active].isLoading = false;
         // 将finished 重置为false,否则不能再进行上拉加载
-        this.cateList[this.active].finished = false
-      },2000);
-    }
+        this.cateList[this.active].finished = false;
+      }, 2000);
+    },
+    
+    // 加载文章数据
+    async init() {
+      // 加载这个栏目的文章数据
+      let posts = await getartcle({
+        category: this.cateList[this.active].id, // 当前栏目文章的每个数据
+        pageIndex: 1, //这个栏目每页所显示的记录数
+        pageSize: 5, // 这个栏目 当前的页码
+      });
+      this.cateList[this.active].postlist = posts.data.data;
+      // console.log(this.cateList);
+    },
   },
 
-   watch: {
+  watch: {
     async active() {
       // console.log(this.cateList[this.active].id);
-      //文章数据 加载这个栏目的文章的数据 
+      //文章数据 加载这个栏目的文章的数据
       //   let posts = await getartcle({
       //   category: this.cateList[this.active].id, //当前分类对应的文章数据
       //   pageIndex: 1,
@@ -117,14 +123,14 @@ export default {
       // this.cateList[this.active].postlist = posts.data.data;
       // console.log(this.cateList);
 
-      //封装调用文章数据 加载这个栏目的文章的数据 
-      this.init()
+      //封装调用文章数据 加载这个栏目的文章的数据
+      this.init();
 
-      // 我们得判断下当前的切换是否第一次切换，如果是才进行数据的获取，否则不获取
-      if(this.cateList[this.active].postlist.length == 0){
-        this.init()
+      // 我们得判断下当前的切换是否第一次切换，如果是 才进行数据的获取，否则不获取
+      if (this.cateList[this.active].postlist.length == 0) {
+        this.init();
       }
-    }
+    },
   },
 
   async mounted() {
@@ -140,16 +146,16 @@ export default {
         postlist: [], //这个栏目的新闻列表数据
         pageIndex: 1, //这个栏目每页所显示的记录数
         pageSize: 5, // 这个栏目 当前的页码
-        loading:false, // 这个栏目的加载状态
-        finished:false, //这个栏目的数据是否加载完毕
-        isLoading:false // 上拉刷新加载数据
+        loading: false, // 这个栏目的加载状态
+        finished: false, //这个栏目的数据是否加载完毕
+        isLoading: false, // 上拉刷新加载数据
       };
     });
     // console.log(this.cateList);
 
-    //文章数据 加载这个栏目的文章的数据 
-    this.init()
-  }
+    // 加载当前栏目文章的数据
+    this.init();
+  },
 };
 </script>
 

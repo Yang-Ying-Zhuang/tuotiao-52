@@ -29,9 +29,17 @@ axios.interceptors.response.use(function (response) {
   if(response.data.message == "用户信息验证失败" || response.data.message == "用户信息验证失败!"){
     // console.log(11);
     Toast.fail(response.data.message);
-    window.location.href = "#/login"
+    // window.location.href = "#/login"
+
+    // 1.获取到当前页面的url.的值
+    // console.log(window.location.hash);
+    // 2.做为参数递给login
+  // http://localhost:8080/#/login?returnurl=%2Farticle%2F7
+  window.location.href = "#/login?returnurl=" + window.location.hash.substr(1)
+
   }
   return response;
+  
 }, function (error) {
   // 对响应错误做点什么
   return Promise.reject(error);

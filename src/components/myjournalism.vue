@@ -1,5 +1,5 @@
 <template>
-  <div class="single" v-if="post.type == 1 && post.cover.length < 3">
+  <div class="single" v-if="post.type == 1 && post.cover.length < 3" @click="$router.push({path:`/article/${post.id}`})">
     <div class="left">
       <p class="content">{{post.title}}</p>
       <p class="info">
@@ -10,7 +10,7 @@
     <img :src="post.cover[0].url" alt />
   </div>
 
-  <div class="single2" v-else-if="post.type===2">
+  <div class="single2" v-else-if="post.type===2" @click="$router.push({path:`/article/${post.id}`})">
     <p class="content">{{post.title}}</p>
     <div class="playarea">
       <img :src="post.cover[0].url" alt />
@@ -24,7 +24,7 @@
     </p>
   </div>
 
-  <div class="single3" v-else-if="post.type===1 && post.cover.length >=3">
+  <div class="single3" v-else-if="post.type===1 && post.cover.length >=3" @click="$router.push({path:`/article/${post.id}`})">
     <p class="content">{{post.title}}</p>
     <div class="imgs">
       <img :src="item.url" alt v-for="item in post.cover" :key="item.id" />
@@ -37,13 +37,16 @@
 </template>
 
 <script>
+
 export default {
   props: {
+   
     post: {
       type: Object,
       required: true,
     },
-  },
+  }
+  
 };
 </script>
 

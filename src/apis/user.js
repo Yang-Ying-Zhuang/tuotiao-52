@@ -48,4 +48,25 @@ export const register = (data)=>{
 
 }
 
+// 关注
+// 接口类型
+// :【GET】
+// 需要验证:【Authorization 】
+// 接口地址: 
+export const attention = (id)=>{
+  return myaxios({
+   url:`/user_follows/${id}`,
+  })
+ }
+
+//取消关注
+// > 接口类型:【GET】
+// > 需要验证:【Authorization 】
+// > 接口地址: 
+// /user_unfollow/:id
+ export const unfriended = (id)=>{
+  return myaxios({
+   url:`/user_unfollow/${id}`,
+  })
+ }
 

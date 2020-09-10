@@ -13,3 +13,15 @@ export const getartcle = (data)=>{
   })
 }
 
+// 点赞数据
+// > 接口类型:【GET】
+// > 需要验证:【Authorization 】
+// > 接口地址: 
+// /post_like/:id
+export const give = (id)=>{
+  return myaxios({
+     url:`/post_like/${id}`
+  })
+}
+
+

@@ -2,7 +2,6 @@ import Vue from "vue"
 import VueRouter from "vue-router"
 Vue.use(VueRouter)
 
-
 //登录页
 import Login from "../views/login.vue"
 // 个人中心页
@@ -13,6 +12,10 @@ import Editprofile from "../views/personal/editprofile.vue"
 import Register from "../views/personal/register.vue"
 //首页
 import Index from "../views/index.vue"
+//新闻详情
+import Article from "@/views/personal/article.vue"
+
+
 const router = new VueRouter({
   routes: [
     {
@@ -39,6 +42,11 @@ const router = new VueRouter({
       name: "register",
       path: "/register",
       component: Register
+    },
+    {
+      name: "article",
+      path: "/article/:id",
+      component: Article
     }
   ]
 })
@@ -53,7 +61,9 @@ router.beforeEach((to, from, next) => {
       next()
     } else {
       // console.log(11);
-       next({name:"login"})
+      next({
+        name: "login"
+      })
     }
   } else {
     next()
