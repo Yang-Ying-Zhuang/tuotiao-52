@@ -68,7 +68,7 @@ export default {
       // await:可以让异步操作先执行完，再执行后续的代码，同时可以获取then回调函数中的返回值
       // 说白了就是我们能够以同步的方式调用方法，所以我们可以接收到异步操作的返回值
       let res = await login(this.user);
-      // console.log(res);
+      console.log(res);
       if (res.data.statusCode === 401) {
         this.$toast.fail({
           message: res.data.message,
@@ -80,14 +80,16 @@ export default {
         localStorage.setItem("heima-52", res.data.data.token);
         // this.$router.push({path:'/personal/'+res.data.data.user.id})
         // this.$router.push({ name: "index" });
+        //获取登录页id存储
+        localStorage.setItem("hei-52",JSON.stringify(res.data.data.user))
+
 
         // 获取可能传递的回传url
-        console.log(window.location.hash);
+        // console.log(window.location.hash);
         // decodeURIComponent()方法可以对url进行编码
         let backurl = decodeURIComponent(window.location.hash.split("=")[1])
-        console.log(decodeURIComponent(backurl));
-
-        if(backurl){
+        // console.log(decodeURIComponent(backurl));
+        if(backurl && backurl != "undefined"){
              this.$router.push({ path: backurl });
         }else{
           this.$router.push({ path: "/index" });

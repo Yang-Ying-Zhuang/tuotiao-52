@@ -24,4 +24,23 @@ export const give = (id)=>{
   })
 }
 
+//收藏
+// > 接口类型:【GET】
+// > 需要验证:【Authorization 】
+// > 接口地址: 
+// /post_star/:id
+export const collect = (id)=>{
+  return myaxios({
+     url:`/post_star/${id}`
+  })
+}
 
+// 评论
+// > 接口类型:【GET】
+// > 接口地址: 
+// /post_comment/:id
+export const comment = (id)=>{
+  return myaxios({
+     url:`/post_comment/${id}`
+  })
+}

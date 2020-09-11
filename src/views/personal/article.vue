@@ -13,7 +13,16 @@
         <span>{{list.nickname}}</span> &nbsp;&nbsp;
         <span>2019-9-9</span>
       </div>
-      <div class="content" v-html="list.content"></div>
+      <div class="content" v-html="list.content" v-if="list.type == 1"></div>
+       <!-- <div class="content"></div> -->
+      <video v-if="list.type == 2 "
+        :src="list.content"
+        autoplay
+        loop
+        poster="https://img.tupianzj.com/uploads/allimg/140710/1-140G01010250-L.jpg"
+        controls>
+      </video>
+
       <div class="opt">
         <span class="like" @click="zanclick" :class="{active:list.has_like}">
           <van-icon name="good-job-o"/>{{list.like_length}}赞
@@ -39,16 +48,19 @@
       </div>
       <div class="more">更多跟帖</div>
     </div>
+    <!-- 底部 -->
+    <myfooter class="bibu" :post="list"></myfooter>
   </div>
 </template>
 
 <script>
 import { articledetails } from "../../apis/fileUpload"; // 文章详情
 import { attention, unfriended } from "../../apis/user"; // 关注和取消关注
-import { give } from "../../apis/artcle"; // 点赞
+import { give } from "../../apis/artcle"; // 点赞]
+import myfooter from "../../components/myfooter" // 底部
 
 export default {
-  comments: { articledetails, attention, unfriended, give },
+  components: { articledetails, attention, unfriended, give,myfooter },
   data() {
     return {
       list: {}, // 文章详情数据
@@ -95,6 +107,7 @@ export default {
 </script>
 
 <style lang='less' scoped>
+
 .header {
   padding: 0px 10px;
   height: 50px;
@@ -131,6 +144,9 @@ export default {
   }
 }
 .detail {
+   video{
+  width: 100%;
+}
   padding: 15px;
   .title {
     font-size: 18px;
@@ -153,8 +169,10 @@ export default {
       width: 100%;
     }
   }
+ 
 }
 .opt {
+  padding-top: 30px;
   display: flex;
   justify-content: space-around;
   .like,
@@ -180,7 +198,7 @@ export default {
 }
 .keeps {
   border-top: 5px solid #ddd;
-  padding: 0 15px;
+  padding: 0 15px 60px;
   > h2 {
     line-height: 50px;
     text-align: center;

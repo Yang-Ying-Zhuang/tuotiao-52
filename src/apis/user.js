@@ -70,3 +70,25 @@ export const attention = (id)=>{
   })
  }
 
+// 关注列表
+// > 接口类型:【GET】
+// > 需要验证:【Authorization 】
+// > 接口地址: 
+// /user_follows
+export const interest = ()=>{
+  return myaxios({
+   url:"/user_follows",
+  })
+ }
+
+//收藏
+// > 接口类型:【GET】
+// > 需要验证:【Authorization 】
+// > 接口地址: 
+// /user_star
+export const collect = ()=>{
+  return myaxios({
+   url:"/user_star",
+  })
+ }
+

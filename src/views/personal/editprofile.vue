@@ -2,7 +2,10 @@
   <div>
     <myhead title="编辑个人资料">
       <div slot="left" class="iconfont iconjiantou2" @click="$router.back()"></div>
-      <!-- <div slot="right">搜索</div> -->
+      <div slot="right" class="manager"  @click="$router.push({path:'/'})">
+        <van-icon name="wap-home-o"/>
+      </div>
+      
     </myhead>
     <div class="myimg">
       <img :src="msg.head_img" alt />
@@ -227,6 +230,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.manager{
+  font-size: 26px;
+  color: red;
+}
 .myimg {
   display: flex;
   justify-content: center;

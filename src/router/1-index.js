@@ -14,6 +14,10 @@ import Register from "../views/personal/register.vue"
 import Index from "../views/index.vue"
 //新闻详情
 import Article from "@/views/personal/article.vue"
+//我的关注
+import Myfollows from "../views/personal/myfollows.vue"
+//收藏
+import Mycollect from "../views/personal/mycollect.vue"
 
 
 const router = new VueRouter({
@@ -26,6 +30,11 @@ const router = new VueRouter({
     {
       name: "index",
       path: "/index",
+      component: Index
+    },
+    {
+      name: "index",
+      path: "/",     //重定向
       component: Index
     },
     {
@@ -47,6 +56,16 @@ const router = new VueRouter({
       name: "article",
       path: "/article/:id",
       component: Article
+    },
+    {
+      name: "myfollows",
+      path: "/myfollows/:id",
+      component: Myfollows
+    },
+    {
+      name: "mycollect",
+      path: "/mycollect/:id",
+      component: Mycollect
     }
   ]
 })
@@ -60,7 +79,6 @@ router.beforeEach((to, from, next) => {
     if (token) {
       next()
     } else {
-      // console.log(11);
       next({
         name: "login"
       })

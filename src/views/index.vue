@@ -9,7 +9,7 @@
         <span>搜索商品</span>
       </div>
       <div class="user">
-        <van-icon name="manager-o" />
+        <van-icon name="manager-o" @click="mycenter"/>
       </div>
     </div>
     <div>
@@ -107,6 +107,14 @@ export default {
       this.cateList[this.active].postlist = posts.data.data;
       // console.log(this.cateList);
     },
+   
+   // 跳转到个人中心
+   mycenter(){
+     const id = JSON.parse(localStorage.getItem("hei-52") || "{}").id
+    //  console.log(id);
+     this.$router.push({path:`/personal/${id}`})
+   }
+
   },
 
   watch: {

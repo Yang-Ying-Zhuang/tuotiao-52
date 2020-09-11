@@ -12,9 +12,9 @@
         <span class="iconfont iconjiantou1"></span>
       </div>
     </router-link>
-    <hmcell title="我的关注" desc="关注的用户"></hmcell>
+    <hmcell title="我的关注" desc="关注的用户" @click="$router.push({path:`/myfollows/${msg.id}`})"></hmcell>
     <hmcell title="我的跟帖" desc="跟帖/回复"></hmcell>
-    <hmcell title="我的收藏" desc="文章/视频"></hmcell>
+    <hmcell title="我的收藏" desc="文章/视频" @click="$router.push({path:`/mycollect/${msg.id}`})"></hmcell>
     <hmcell title="设置"></hmcell>
     <mybutton class="btn" @click="clickRegister">退出</mybutton>
   </div>
@@ -29,10 +29,12 @@ import mybutton from "@/components/mybutton"
 import {getUserById} from "@/apis/user"
 // 引入基准路径
 import URL from "@/utils/axios"
+// 关注和取消关注
+import { attention, unfriended,collect } from "../../apis/user"; 
 
 export default {
   components:{
-    hmcell,mybutton,getUserById
+    hmcell,mybutton,getUserById,attention,unfriended
   },
   data(){
     return{
@@ -58,6 +60,10 @@ export default {
     clickRegister(e){
        localStorage.removeItem("heima-52")
        this.$router.push({name:"register"})
+    },
+   async mycollect(){
+       const str = await collect()
+       console.log(str);
     }
   }
 

@@ -4,7 +4,7 @@
       <p class="content">{{post.title}}</p>
       <p class="info">
         <span>{{post.user.nickname}}</span>
-        <span>{{post.comment_length}}跟帖</span>
+        <span>{{post.comment_length}}人跟帖</span>
       </p>
     </div>
     <img :src="post.cover[0].url" alt />
@@ -20,7 +20,7 @@
     </div>
     <p class="info">
       <span>{{post.user.nickname}}</span>
-      <span>{{post.comment_length}}跟帖</span>
+      <span>{{post.comment_length}}人跟帖</span>
     </p>
   </div>
 
@@ -31,7 +31,7 @@
     </div>
     <p class="info">
       <span>{{post.user.nickname}}</span>
-      <span>{{post.comment_length}}跟帖</span>
+      <span>{{post.comment_length}}人跟帖</span>
     </p>
   </div>
 </template>
@@ -40,7 +40,6 @@
 
 export default {
   props: {
-   
     post: {
       type: Object,
       required: true,

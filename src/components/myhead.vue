@@ -14,7 +14,7 @@
 
 <script>
 export default {
-   props:["left","title","right"]
+   props:["left","title","right"],
 };
 </script>
 
