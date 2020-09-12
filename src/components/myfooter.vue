@@ -11,26 +11,28 @@
     </div>
 
     <div class="inputcomment" v-show="isFocus">
-      <textarea ref="commtext" rows="5" @blur="isFocus = false"></textarea>
+      <textarea ref="commtext" rows="5"></textarea>
       <div>
-        <span class="fason">发 送</span>
-        <span @click="isFocus=false">取 消</span>
+        <span class="fason" @click="sendComment">发 送</span>
+        <span @click="cancel">取 消</span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { collect } from "../apis/artcle"; // 收藏
-// import {comment} from "../apis/artcle"
+import { collect,postcomment } from "@/apis/artcle"; // 收藏
+
 export default {
-  components: { collect, },
 
   props: {
     post: {
       type: Object,
       required: true,
     },
+    curren:{
+      type:Object
+    }
   },
   data() {
     return {
@@ -39,12 +41,36 @@ export default {
     };
   },
   methods: {
+    cancel(){
+      this.isFocus = false
+      this.$refs.commtext.value = ""
+    },
     //   获取焦点时触发
     handlerFocus() {
       this.isFocus = !this.isFocus;
-      // 让文本域聚焦
+     setTimeout(()=>{
+        // 让文本域聚焦
       this.$refs.commtext.focus();
+     },100)
+  
     },
+
+    // 评论发布
+    async sendComment(e){
+      //  console.log(this.$refs.commtext.value);
+      // 获取文本框内容
+      let data = { content:this.$refs.commtext.value }
+      // 获取回复评论当前id
+      data.parent_id = this.curren.id
+      // console.log(data);
+      let res = await postcomment(this.post.id,data)
+      // console.log(res);
+      this.$toast.success( res.data.message)
+      this.$emit("click",e)
+      this.$refs.commtext.value = ""
+      this.isFocus = false
+    },
+
     // 点击收藏
     async mycollect(id) {
        const res = await collect(id);
@@ -52,6 +78,15 @@ export default {
        this.post.has_star = !this.post.has_star;
     },
   },
+
+   // 监听curren 的值的变化
+  watch:{
+   curren(newv,oldv){
+     (newv,oldv); 
+     this.isFocus = true
+   }
+  },
+
 };
 </script>
 
