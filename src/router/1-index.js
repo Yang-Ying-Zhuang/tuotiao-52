@@ -18,10 +18,16 @@ import Article from "@/views/personal/article.vue"
 import Myfollows from "../views/personal/myfollows.vue"
 //收藏
 import Mycollect from "../views/personal/mycollect.vue"
+//评论
+import Comment from "../views/personal/comment.vue"
 
 
 const router = new VueRouter({
   routes: [
+    {
+      path: "/",     //添加路由默认重定向
+      redirect:{name:"index"}
+    },
     {
       name: "login",
       path: "/login",
@@ -30,11 +36,6 @@ const router = new VueRouter({
     {
       name: "index",
       path: "/index",
-      component: Index
-    },
-    {
-      name: "index",
-      path: "/",     //重定向
       component: Index
     },
     {
@@ -66,6 +67,11 @@ const router = new VueRouter({
       name: "mycollect",
       path: "/mycollect/:id",
       component: Mycollect
+    },
+    {
+      name: "comment",
+      path: "/comment/:id",
+      component: Comment
     }
   ]
 })

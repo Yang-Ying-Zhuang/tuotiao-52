@@ -3,7 +3,7 @@
     <div class="addcomment" v-show="!isFocus">
       <input type="text" placeholder="写跟帖" @focus="handlerFocus" />
       <span class="comment">
-        <i class="iconfont iconpinglun-" @click="mycomment(post.id)"></i>
+        <i class="iconfont iconpinglun-" @click="$router.push({path:`/comment/${post.id}`})"></i>
         <em>{{post.comment_length}}</em>
       </span>
       <i class="iconfont iconshoucang" @click="mycollect(post.id)" :class="{active:post.has_star}"></i>
@@ -22,9 +22,9 @@
 
 <script>
 import { collect } from "../apis/artcle"; // 收藏
-import {comment} from "../apis/artcle"
+// import {comment} from "../apis/artcle"
 export default {
-  components: { collect,comment },
+  components: { collect, },
 
   props: {
     post: {
@@ -47,17 +47,10 @@ export default {
     },
     // 点击收藏
     async mycollect(id) {
-     
        const res = await collect(id);
        this.$toast.success(res.data.message);
        this.post.has_star = !this.post.has_star;
     },
-    // 评论
-   async mycomment(id){
-      const datares = await comment(id)
-      console.log(datares);
-      this.list = datares
-    }
   },
 };
 </script>

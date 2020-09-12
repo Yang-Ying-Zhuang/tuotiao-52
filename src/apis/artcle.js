@@ -39,8 +39,9 @@ export const collect = (id)=>{
 // > 接口类型:【GET】
 // > 接口地址: 
 // /post_comment/:id
-export const comment = (id)=>{
+export const comment = (id,params)=>{
   return myaxios({
-     url:`/post_comment/${id}`
+     url:`/post_comment/${id}`,
+     params
   })
 }
