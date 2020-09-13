@@ -13,8 +13,8 @@
           class="input"
           :rules="/^1\d{4}$|^1[35789]\d{9}$/"
           msg="手机号码格式不正确"
-          v-model="user.username"
-        />
+          v-model="user.username"/>
+
         <myinput
           data-v-744880be
           placeholder="昵称"
@@ -22,14 +22,15 @@
           :rules="/^[0-9a-zA-Z\u4e00-\u9fa5]{2,}$/"
           v-model="user.nickname"
           msg="昵称格式不正确"/>
+
         <myinput
           placeholder="密码"
           class="input"
           type="password"
           :rules="/^[0-9a-zA-Z]{3,}$/"
           msg="密码格式不正确"
-          v-model="user.password"
-        />
+          v-model="user.password"/>
+          
       </div>
       <p class="tips">
         有账号？

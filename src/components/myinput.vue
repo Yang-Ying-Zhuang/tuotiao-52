@@ -18,9 +18,6 @@ export default {
        statu:true
      }
    },
-// mounted(){
-// console.log(this.rules);
-// },
 
    methods:{
      handlerClick(e){

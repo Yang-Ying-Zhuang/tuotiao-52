@@ -18,7 +18,13 @@
         <div class="text">{{value.content}}</div>
       </div>
     </div>
-    <myfooter :post="article" :curren="reqly" @click="myclick"></myfooter>
+    <!-- 底部组件 -->
+    <myfooter 
+      :post="article"
+      :curren="reqly"
+      @click="myclick"
+      @cancelclick="reqly = null">
+    </myfooter>
   </div>
 </template>
 

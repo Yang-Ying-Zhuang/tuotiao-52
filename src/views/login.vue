@@ -22,7 +22,9 @@
           <!-- 用户输入的号码规定 -->
         </myinput>
 
-        <myinput placeholder="请输入密码" type="password" v-model="user.password"></myinput>
+        <myinput placeholder="请输入密码" type="password"
+         v-model="user.password">
+         </myinput>
       </div>
       <p class="tips">
         没有账号？

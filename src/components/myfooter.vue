@@ -41,9 +41,12 @@ export default {
     };
   },
   methods: {
+    // 取消
     cancel(){
       this.isFocus = false
-      this.$refs.commtext.value = ""
+      this.$refs.commtext.value = "",
+      // 发出事件，让父组件将这个评论对象重置为null
+      this.$emit("cancelclick")
     },
     //   获取焦点时触发
     handlerFocus() {
@@ -60,8 +63,11 @@ export default {
       //  console.log(this.$refs.commtext.value);
       // 获取文本框内容
       let data = { content:this.$refs.commtext.value }
-      // 获取回复评论当前id
-      data.parent_id = this.curren.id
+      //判断this.curren有没有值
+       if(this.curren){
+            // 获取回复评论当前id
+           data.parent_id = this.curren.id
+       }
       // console.log(data);
       let res = await postcomment(this.post.id,data)
       // console.log(res);
@@ -82,8 +88,11 @@ export default {
    // 监听curren 的值的变化
   watch:{
    curren(newv,oldv){
-     (newv,oldv); 
-     this.isFocus = true
+    //  console.log(newv,oldv);
+  // 只有用户点击回复，才出弹框
+   if(this.curren){
+       this.isFocus = true
+    }
    }
   },
 
