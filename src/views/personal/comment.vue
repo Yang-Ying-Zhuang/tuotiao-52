@@ -14,7 +14,12 @@
           <span @click="myreply(value)">回复</span>
         </div>
         <!-- 判断到底需不需要成一级评论的结构 -->
-        <commentitle :parent="value.parent" v-if="value.parent"></commentitle>
+        <commentitle 
+           :parent="value.parent"
+            v-if="value.parent"
+            @childtheparent="myreply">
+        </commentitle>
+
         <div class="text">{{value.content}}</div>
       </div>
     </div>
@@ -70,7 +75,7 @@ export default {
 
     // 回复点击事件
     myreply(value){
-      console.log(value);
+      // console.log(value);
        this.reqly = value
     },
     // 子传父的刷新页面
