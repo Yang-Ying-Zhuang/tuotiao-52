@@ -22,8 +22,7 @@
             @load="onLoad"
             :finished="value.finished"
             :offset="10"
-            finished-text="没有更多了"
-          >
+            finished-text="没有更多了">
             <!-- 下拉刷新 -->
             <van-pull-refresh v-model="value.isLoading" @refresh="onRefresh">
               <mynews v-for="(v,i) in value.postlist" :key="i" :post="v"></mynews>
@@ -113,7 +112,7 @@ export default {
      const id = JSON.parse(localStorage.getItem("hei-52") || "{}").id
     //  console.log(id);
      this.$router.push({path:`/personal/${id}`})
-   }
+   },
 
   },
 
@@ -163,6 +162,18 @@ export default {
 
     // 加载当前栏目文章的数据
     this.init();
+
+    // 添加doc元素，原生操作加号功能
+     document.querySelector(".van-sticky").onclick = (e)=>{
+          // console.log(e.target.className);
+          // 判断获取类名
+          if(e.target.className == "van-sticky"){
+             this.$router.push({path:"/catemanager"})
+          }
+     }
+       
+  
+
   },
 };
 </script>
@@ -198,6 +209,21 @@ export default {
       left: 28%;
       top: 19%;
     }
+  }
+}
+/deep/.van-sticky{
+  padding-right: 50px;
+  &::after{
+    content: '+';
+    position: absolute;
+    width: 51px;
+    height: 44px;
+    background-color: #fff;
+    top: 0;
+    right: 0;
+    text-align: center;
+    line-height: 42px;
+    font-size: 35px;
   }
 }
 </style>

@@ -20,6 +20,8 @@ import Myfollows from "../views/personal/myfollows.vue"
 import Mycollect from "../views/personal/mycollect.vue"
 //评论
 import Comment from "../views/personal/comment.vue"
+// 添加加号功能
+import Catemanager from "../views/personal/catemanager.vue"
 
 
 const router = new VueRouter({
@@ -72,6 +74,11 @@ const router = new VueRouter({
       name: "comment",
       path: "/comment/:id",
       component: Comment
+    },
+    {
+      name: "catemanager",
+      path: "/catemanager",
+      component: Catemanager
     }
   ]
 })
