@@ -50,35 +50,46 @@ export default {
     }
   },
   async mounted(){
-   // 获取本地存储数据
+    // 获取本地存储数据
     this.mycateList = JSON.parse(localStorage.getItem("youheima") || '[]');
         if (this.mycateList.length == 0){
           // 栏目数据
           let res = await category()
           // console.log(res);
-          this.mycateList = res.data.data
-        }
+          this.mycateList = res.data.data;
 
-    // 获取为添加的栏目数据
+          // 由于 关注和头条不允许用户进行操作
+          // 1.关注得根据用户登录状态进行处理，如果登录了就有关注，如果没有登录就没有关注
+          // 2.头条不管用户是否登陆过都会默认展示在首页导航中，不允许用户进行操作
+          if(localStorage.getItem("heima-52")){
+            // 如果登陆过就应该有关注和头条，这两个不允许用户进行操作，所以将这两个数据移除
+            this.mycateList.splice(0,2)
+
+          }else{
+            // 没有登陆过，也要移除头条栏目
+             this.mycateList.splice(0,1)
+          }
+        }
+    // 获取未添加的栏目数据
     this.myatlarge = JSON.parse(localStorage.getItem("meiheima") || '[]');
   },
+
   methods:{
     // 已添加的栏目
       mydelete(index,value){
          this.myatlarge.push(value)
          this.mycateList.splice(index, 1); 
-         //设置本地存储
-        // localStorage.setItem("youheima",JSON.stringify(this.mycateList))
-        
+    //设置本地存储,操作执行完之后，要记得将数据进行本地存储，否则下次打开的时候数据会还原
+        localStorage.setItem("youheima",JSON.stringify(this.mycateList))
+        localStorage.setItem("meiheima",JSON.stringify(this.myatlarge))
       },
-    
-    // 为添加的栏目
+    // 未添加的栏目
       add(index,value){
-        console.log(index,value);
         this.mycateList.push(value),
         this.myatlarge.splice(index,1)
-        // 设置本地存储
-        // localStorage.setItem("meiheima",JSON.stringify(this.mycateList))
+    // 设置本地存储,操作执行完之后，要记得将数据进行本地存储，否则下次打开的时候数据会还原
+        localStorage.setItem("youheima",JSON.stringify(this.mycateList))
+        localStorage.setItem("meiheima",JSON.stringify(this.myatlarge))
       }
     
   }

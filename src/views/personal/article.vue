@@ -2,7 +2,7 @@
   <div class="articaldetail">
     <div class="header">
       <div class="left">
-        <van-icon name="arrow-left back" @click="$router.push({name:'index'})"/>
+        <van-icon name="arrow-left back" @click="$router.back()"/>
         <span class="iconfont iconnew new"></span>
       </div>
       <span @click="myattention" :class="{active:list.has_follow}">{{list.has_follow?"取消关注":"关注"}}</span>

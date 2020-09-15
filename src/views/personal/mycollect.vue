@@ -13,7 +13,7 @@ import myjournalism from "../../components/myjournalism"
 import {collect} from "../../apis/user"
 export default {
    components: {
-     myheader,myjournalism,collect
+     myheader,myjournalism
    },
    data(){
      return{
@@ -23,7 +23,7 @@ export default {
 
   async mounted(){
      const res = await collect()
-     console.log(res);
+    //  console.log(res);
      this.data = res.data.data
    }
 }

@@ -83,7 +83,7 @@ const router = new VueRouter({
   ]
 })
 
-// 添加导航守卫
+// 添加全局导航守卫
 router.beforeEach((to, from, next) => {
   // 当前的跳转是否跳转到需要进行授权认证的页面，如/personal
   if (to.name == "personal") {

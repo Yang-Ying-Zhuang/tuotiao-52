@@ -141,10 +141,31 @@ export default {
   },
 
   async mounted() {
-    // 栏目数据
-    const res = await category();
-    // console.log(res);
-    this.cateList = res.data.data;
+    // 获取原有 youheima 的存储数据，一开始是没有数据
+    this.cateList = JSON.parse(localStorage.getItem("youheima") || "[]")
+    // 判断一下this.cateList是索引数据是不是等于0,
+    if(this.cateList.length == 0){
+       // 栏目请求的数据
+       const res = await category();
+       // console.log(res);
+       this.cateList = res.data.data;
+
+    // 由于本地存储中并没有和头条这两个栏目，意味着我们需要进行相应的数据添加
+    }else{
+      // 如果登录过，就应该添加关注和头条
+      if(localStorage.getItem("heima-52")){
+        // 通过unshift方法可以接收两个对象追加: 可以将的指定的元素添加到数据的最前面
+        this.cateList.unshift(
+          {id:0,name:"关注",is_top:1},
+          {id:999,name:"头条",is_top:1},
+          )
+          
+       // 如果没有登录过，就只添加头条   
+      }else{
+         this.cateList.unshift({id:999,name:"头条",is_top:1})
+      }
+    }
+
     // 改造数据为复合我们业务需求的各式，简单说就是为数据添加的成员
     this.cateList = this.cateList.map((value) => {
       // console.log(value);
