@@ -4,8 +4,8 @@
       <div class="logo">
         <span class="iconfont iconnew"></span>
       </div>
-      <div class="search">
-        <van-icon name="search" />
+      <div class="search" @click="$router.push({path:'/search'})">
+        <van-icon name="search"/>
         <span>搜索商品</span>
       </div>
       <div class="user">

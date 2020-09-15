@@ -22,6 +22,8 @@ import Mycollect from "../views/personal/mycollect.vue"
 import Comment from "../views/personal/comment.vue"
 // 添加加号功能
 import Catemanager from "../views/personal/catemanager.vue"
+// 搜索可能
+import Search from "../views/personal/mysearch.vue"
 
 
 const router = new VueRouter({
@@ -79,6 +81,11 @@ const router = new VueRouter({
       name: "catemanager",
       path: "/catemanager",
       component: Catemanager
+    },
+    {
+      name: "search",
+      path: "/search",
+      component: Search
     }
   ]
 })
