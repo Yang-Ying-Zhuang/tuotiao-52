@@ -61,4 +61,15 @@ export const postcomment = (id,data)=>{
   })
 }
 
+// 文章搜索
+// > 接口类型:【GET】
+// > 接口地址: 
+// /post_search
+export const search = (keyword)=>{
+  return myaxios({
+     url:`/post_search`,
+     params:{keyword}
+  })
+}
+
 
